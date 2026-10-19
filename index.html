@@ -3,28 +3,33 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WebAR Pastkarte</title>
+    <!-- Stabila dzinēju versiju kombinācija -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
-      body { margin: 0; overflow: hidden; }
-      /* Statusa indikators augšā */
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
       #status {
         position: fixed;
-        top: 15px; left: 50%;
+        top: 15px;
+        left: 50%;
         transform: translateX(-50%);
         padding: 8px 16px;
         background: rgba(0, 0, 0, 0.7);
-        color: #ff4d4d;
+        color: #ffffff;
         font-family: sans-serif;
         font-size: 14px;
         border-radius: 20px;
         z-index: 10000;
         pointer-events: none;
+        transition: background 0.3s ease;
       }
     </style>
   </head>
   <body>
-    <div id="status">Pavērsiet kameru pret QR kodu...</div>
+    <div id="status">Pavērsiet kameru pret bildi...</div>
 
     <a-scene 
       mindar-image="imageTargetSrc: tiguslauk.mind; uiLoading: no; uiScanning: no;" 
@@ -35,11 +40,12 @@
       
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity id="target" mindar-image-target="targetIndex: 0">
-        <!-- Bilde tieši no faila -->
+      <!-- Marķieris no tiguslauk.mind -->
+      <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
+        <!-- Bilde, kas parādās tieši virs marķiera -->
         <a-image 
           src="tirgus.jpeg" 
-          position="0 0 0.1" 
+          position="0 0 0.05" 
           height="1" 
           width="1">
         </a-image>
@@ -47,17 +53,17 @@
     </a-scene>
 
     <script>
-      const target = document.querySelector('#target');
+      const target = document.querySelector('#ar-target');
       const statusText = document.querySelector('#status');
 
       target.addEventListener('targetFound', () => {
-        statusText.innerText = "✓ Atpazīts!";
-        statusText.style.color = "#00ff66";
+        statusText.innerText = "✓ Bilde atpazīta!";
+        statusText.style.background = "rgba(0, 180, 80, 0.85)";
       });
 
       target.addEventListener('targetLost', () => {
-        statusText.innerText = "Pavērsiet kameru pret QR kodu...";
-        statusText.style.color = "#ff4d4d";
+        statusText.innerText = "Pavērsiet kameru pret bildi...";
+        statusText.style.background = "rgba(0, 0, 0, 0.7)";
       });
     </script>
   </body>
