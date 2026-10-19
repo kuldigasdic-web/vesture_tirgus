@@ -30,8 +30,9 @@
   <body>
     <div id="status">Lādē dzinēju...</div>
 
+    <!-- filterMinCF: 1 un filterBeta: 10 noņem aizturi, liekot bildei uzreiz sekot kustībai -->
     <a-scene 
-      mindar-image="imageTargetSrc: tirguslauk12.mind; filterMinCF: 0.0001; filterBeta: 0.001; missTolerance: 5; uiLoading: no; uiScanning: no;" 
+      mindar-image="imageTargetSrc: tirguslauk12.mind; filterMinCF: 1; filterBeta: 10; missTolerance: 2; warmupTolerance: 2; uiLoading: no; uiScanning: no;" 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights: false" 
       vr-mode-ui="enabled: false" 
@@ -44,7 +45,7 @@
           id="ar-image"
           src="tirgus.jpeg" 
           position="0 0 0.05" 
-          rotation="0 0 0">
+          rotation="0 0 -90">
         </a-image>
       </a-entity>
     </a-scene>
@@ -55,12 +56,11 @@
       const arImage = document.querySelector('#ar-image');
       const statusText = document.querySelector('#status');
 
-      // Automātiski nosaka bildes oriģinālo malu attiecību
+      // Automātiski nolasa bildes proporcijas, lai nekas netiktu apgriezts
       const img = new Image();
       img.src = 'tirgus.jpeg';
       img.onload = () => {
         const ratio = img.naturalWidth / img.naturalHeight;
-        // Tā kā bilde ir rotēta par 90 grādiem, platums un augstums pielāgojas rotācijai
         arImage.setAttribute('width', ratio);
         arImage.setAttribute('height', '1');
       };
