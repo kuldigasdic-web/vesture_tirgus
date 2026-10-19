@@ -1,1 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebAR Pastkarte</title>
+    <!-- A-Frame un MindAR skripti -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <a-scene 
+      mindar-image="imageTargetSrc: ./targets.mind;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false">
+      
+      <a-assets>
+        <img id="my-image" src="tava-bilde.png" />
+      </a-assets>
 
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <!-- targetIndex: 0 norāda uz pirmo kompilēto attēlu no targets.mind -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- Bilde, kas parādās tieši virs atpazītā laukuma -->
+        <a-image 
+          src="#my-image" 
+          position="0 0 0.1" 
+          height="1" 
+          width="1">
+        </a-image>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
