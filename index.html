@@ -2,34 +2,21 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>WebAR Pastkarte</title>
+    <title>Pastkarte AR</title>
+    <!-- Pārbaudītas un stabilas dzinēja versijas -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
-      body { margin: 0; overflow: hidden; }
-      #status {
-        position: fixed;
-        top: 15px; left: 50%;
-        transform: translateX(-50%);
-        padding: 8px 16px;
-        background: rgba(0, 0, 0, 0.75);
-        color: #ffffff;
-        font-family: sans-serif;
-        font-size: 13px;
-        border-radius: 20px;
-        z-index: 10000;
-        pointer-events: none;
-        text-align: center;
-        max-width: 80%;
+      body {
+        margin: 0;
+        overflow: hidden;
       }
     </style>
   </head>
   <body>
-    <div id="status">Inicializē dzinēju...</div>
-
-    <!-- filterMinCF un missTolerance padara kameras reakciju jutīgāku -->
+    <!-- AR aina ar tavu marķieri tirguslauk12.mind -->
     <a-scene 
-      mindar-image="imageTargetSrc: ./tiguslauk12.mind; filterMinCF: 0.0001; filterBeta: 0.001; missTolerance: 10; uiLoading: no; uiScanning: no;" 
+      mindar-image="imageTargetSrc: ./tirguslauk12.mind; uiLoading: yes; uiScanning: yes;" 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights: false" 
       vr-mode-ui="enabled: false" 
@@ -37,41 +24,16 @@
       
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-entity id="ar-target" mindar-image-target="targetIndex: 0">
+      <!-- Pirmais marķieris failā -->
+      <a-entity mindar-image-target="targetIndex: 0">
+        <!-- Bilde tirgus.jpeg, kas parādās virs marķiera -->
         <a-image 
           src="tirgus.jpeg" 
-          position="0 0 0.05" 
+          position="0 0 0.1" 
           height="1" 
           width="1">
         </a-image>
       </a-entity>
     </a-scene>
-
-    <script>
-      const sceneEl = document.querySelector('a-scene');
-      const target = document.querySelector('#ar-target');
-      const statusText = document.querySelector('#status');
-
-      // Kad dzinējs ir gatavs un fails ielādēts
-      sceneEl.addEventListener('arReady', () => {
-        statusText.innerText = "Kamera gatava! Pavērsiet pret attēlu...";
-      });
-
-      // Ja gadās kļūda ar failu vai kameru
-      sceneEl.addEventListener('arError', (event) => {
-        statusText.innerText = "Kļūda ielādējot AR datus!";
-        statusText.style.background = "rgba(200, 0, 0, 0.85)";
-      });
-
-      target.addEventListener('targetFound', () => {
-        statusText.innerText = "✓ Atpazīts!";
-        statusText.style.background = "rgba(0, 180, 80, 0.85)";
-      });
-
-      target.addEventListener('targetLost', () => {
-        statusText.innerText = "Pavērsiet pret attēlu...";
-        statusText.style.background = "rgba(0, 0, 0, 0.75)";
-      });
-    </script>
   </body>
 </html>
