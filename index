@@ -19,7 +19,7 @@
       device-orientation-permission-ui="enabled: false">
       
       <a-assets>
-        <img id="my-image" src="tava-bilde.png" />
+        <img id="my-image" src="Baznicas iela, Rātslaukums, 21gs 2023-09-01.jpeg" />
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
