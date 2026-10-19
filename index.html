@@ -3,8 +3,8 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>WebAR Pastkarte</title>
-    <!-- A-Frame un MindAR skripti -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- Stabila A-Frame un MindAR kombinācija -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
       body { margin: 0; overflow: hidden; }
@@ -12,24 +12,22 @@
   </head>
   <body>
     <a-scene 
-      mindar-image="imageTargetSrc: ./targets.mind;" 
+      mindar-image="imageTargetSrc: ./targets.mind; uiLoading: no; uiScanning: no;" 
       color-space="sRGB" 
       renderer="colorManagement: true, physicallyCorrectLights" 
       vr-mode-ui="enabled: false" 
       device-orientation-permission-ui="enabled: false">
       
       <a-assets>
-        <img id="my-image" src="Baznicas iela, Rātslaukums, 21gs 2023-09-01.jpeg" />
+        <img id="my-image" src="tirgus.png" />
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <!-- targetIndex: 0 norāda uz pirmo kompilēto attēlu no targets.mind -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- Bilde, kas parādās tieši virs atpazītā laukuma -->
         <a-image 
           src="#my-image" 
-          position="0 0 0.1" 
+          position="0 0 0.05" 
           height="1" 
           width="1">
         </a-image>
